@@ -1,115 +1,91 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-body {
-  background-color: #f4c531;
-}
-.container {
-  font-size: 16px;
-  background-color: #ffffff;
-  width: 90vw;
-  max-width: 34em;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  padding: 3em;
-  border-radius: 0.6em;
-  box-shadow: 0 1.2em 2.4em rgba(111, 85, 0, 0.25);
-}
-#options-container {
-  text-align: center;
-}
-#options-container div {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin: 1.2em 0 2.4em 0;
-}
-#options-container button {
-  padding: 0.6em 1.2em;
-  border: 3px solid #000000;
-  background-color: #ffffff;
-  color: #000000;
-  border-radius: 0.3em;
-  text-transform: capitalize;
-}
-#options-container button:disabled {
-  border: 3px solid #808080;
-  color: #808080;
-  background-color: #efefef;
-}
-#options-container button.active {
-  background-color: #f4c531;
-  border: 3px solid #000000;
-  color: #000000;
-}
-.letter-container {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.6em;
-}
-#letter-container button {
-  height: 2.4em;
-  width: 2.4em;
-  border-radius: 0.3em;
-  background-color: #ffffff;
-}
-.new-game-popup {
-  background-color: #ffffff;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  border-radius: 0.6em;
+@font-face {
+  font-family: "Antry Sans";
+  src: url("./fonts/AntrySans_PERSONAL_USE_ONLY.otf");
 }
 
-#user-input-section {
+@font-face {
+  font-family: "Unbounded";
+  src: url("./fonts/Unbounded-VariableFont_wght.ttf");
+}
+
+body{
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  font-family: "Unbounded";
+  height: 100%;
+}
+
+header{
+  background-color:#0C0D0A;
+  padding: 10px;
+  color:#C3F25C;
+  text-align: center;
+  font-family: 'Antry Sans';
+  font-size: x-large;
+}
+
+.mainContainer{
   display: flex;
+  margin-top: 5%;
+}
+
+.leftContainer{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
   justify-content: center;
-  font-size: 1.8em;
-  margin: 0.6em 0 1.2em 0;
 }
-canvas {
-  display: block;
-  margin: auto;
-  border: 1px solid #000000;
-}
-.hide {
-  display: none;
-}
-#result-text h2 {
-  font-size: 1.8em;
+
+.guessWord{
+  background-color:#0C0D0A;
+  color:#C3F25C;
+  padding: 5px;
+  width: 325px;
   text-align: center;
 }
-#result-text p {
-  font-size: 1.25em;
-  margin: 1em 0 2em 0;
+
+img{
+  height: 500px;
 }
-#result-text span {
-  font-weight: 600;
+
+.rightContainer{
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: space-around;
+  width: 50%;
 }
-#new-game-button {
-  font-size: 1.25em;
-  padding: 0.5em 1em;
-  background-color: #f4c531;
-  border: 3px solid #000000;
-  color: #000000;
-  border-radius: 0.2em;
+.bottomContainer{
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20%;
 }
-.win-msg {
-  color: #39d78d;
+
+.button{
+  background-color:#0C0D0A;
+  color:#C3F25C;
+  padding: 5px 20px;
+ }
+
+input{
+  width: 50%;
+  height: 30px;
+  align-self: center;
 }
-.lose-msg {
-  color: #fe5152;
+
+.textRules{
+  padding: 0 20%;
+}
+
+footer{
+  background-color:#0C0D0A;
+  color:#C3F25C;
+  position:absolute;
+  bottom:0;
+  width: 100%;
+  height:60px;
+  display: flex;
+  justify-content: flex-end;
 }
