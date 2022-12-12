@@ -69,8 +69,19 @@ img{
   padding: 5px 20px;
  }
 
+.alertInput{
+  display: flex;
+  flex-direction: column;
+}
+
+.alert{
+  padding: 0 20%;
+  color: red;
+  font-size: small;
+}
+
 input{
-  width: 50%;
+  width: 60%;
   height: 30px;
   align-self: center;
 }
