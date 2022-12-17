@@ -20,11 +20,46 @@
 //     'Leonardo DiCaprio, Kate Winslet, Billy Zane','Al Pacino','Sam Worthington, Zoe Saldana, Stephen Lang',
 //     'Humphrey Bogart, Ingrid Bergman, Paul Henreid','F. Murray Abraham, Tom Hulce, Elizabeth Berridge'],
 // ]
+
+
 let guessWord = document.querySelector("#guessWord");
+let letterInput = document.querySelector('#letter');
+let validButton = document.getElementById('valider');
+
+
+
+function Game(selectedMovie){
+    this.selectedMovie = selectedMovie;
+    this.historique = [];
+    //cette fonction va tester la lettre entrée par le user et l'ajouter dans l'historique si elle n'éxiste pas
+    //après verification on évalue le pendu
+    this.addUserInput = (userInput) => {
+        this.historique.push(userInput);
+        this.checkState();
+    }
+    //cette fonction permet d'évaluer le pendu (perdu, gagner)
+    this.checkState = () => {
+        console.log("on test");
+        guessWord.textContent=game.hiddenName();
+    }
+    //cette fonction retourne le nom du film caché
+    this.hiddenName = () => {
+        let titre = "";
+        for(const char of this.selectedMovie.titre){
+            if (this.historique.includes(char)) {
+                titre += char + " ";
+            } else {
+                titre += "_ ";
+            }
+        }
+        console.log(titre);
+        return titre;
+    }
+}
 
 
 function Movie(titre,realisateur, annee,acteurs) {
-    this.titre = titre;
+    this.titre = titre.toUpperCase();
     this.realisateur = realisateur;
     this.annee = annee;
     this.acteurs = acteurs;
@@ -56,6 +91,28 @@ function getRandomIndexMovie() {
 const indexMovie = getRandomIndexMovie();
 
 //Récupérer l'objet movie correspondant à la clef
-const selectedMovie = movies[indexMovie];
+const game = new Game(movies[indexMovie]);
 
-guessWord.textContent=selectedMovie.titre;
+guessWord.textContent=game.hiddenName();
+
+validButton.addEventListener('click', (event) => {
+    console.log(event);
+    console.log(letterInput.value);
+    const value = letterInput.value;
+    game.addUserInput(value.toUpperCase());
+
+});
+
+//activer le bouton si input rempli
+validButton.disabled = true;
+
+letterInput.addEventListener('input', (event) => {
+    console.log(event);
+    const value = event.target.value;
+    // value ='' & value = null & value=undefined
+    if (value) {
+        validButton.disabled = false;
+    } else {
+        validButton.disabled = true;
+    }
+})
