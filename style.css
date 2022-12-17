@@ -38,7 +38,7 @@ header{
   justify-content: center;
 }
 
-.guessWord{
+#guessWord{
   background-color:#0C0D0A;
   color:#C3F25C;
   padding: 5px;
