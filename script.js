@@ -25,6 +25,31 @@
 let guessWord = document.querySelector("#guessWord");
 let letterInput = document.querySelector('#letter');
 let validButton = document.getElementById('valider');
+let clue = document.getElementById('clue');
+let text = document.getElementById('text');
+let rules = document.getElementById('rules');
+//C= Clavier, R=regle, I=indice
+let pageState = "C";
+
+function refreshPage() {
+    if (pageState === "C") {
+        clue.textContent = "Indice";
+        rules.textContent = "Règle";
+        text.textContent = "";
+    }
+    else if (pageState === "R"){
+        clue.textContent = "Indice";
+        rules.textContent = "Clavier";
+        text.textContent = `Dans le jeu du pendu vous devez deviner un mot. Servez-vous des touches de 
+        votre clavier pour entrer une lettre et deviner le mot avant que l'affiche ne
+        soit reconstituée. La thématique de ce pendu est "film".`;
+    }
+    else if(pageState === "I"){
+        clue.textContent = "Clavier";
+        rules.textContent = "Règle";
+        text.textContent = "Réalisateur: " + game.selectedMovie.realisateur + "\n";
+    }
+}
 
 
 
@@ -36,6 +61,7 @@ function Game(selectedMovie){
     this.addUserInput = (userInput) => {
         this.historique.push(userInput);
         this.checkState();
+        letterInput.value='';
     }
     //cette fonction permet d'évaluer le pendu (perdu, gagner)
     this.checkState = () => {
@@ -115,4 +141,25 @@ letterInput.addEventListener('input', (event) => {
     } else {
         validButton.disabled = true;
     }
-})
+});
+
+//Afficher les indices si bouton indice cliqué
+refreshPage();
+
+clue.addEventListener('click',() => {
+    if (pageState !== "I") {
+        pageState = "I";
+    } else {
+        pageState = "C";
+    }
+    refreshPage();
+});
+
+rules.addEventListener('click',() => {
+    if (pageState !== "R") {
+        pageState = "R";
+    } else {
+        pageState = "C";
+    }
+    refreshPage();
+});

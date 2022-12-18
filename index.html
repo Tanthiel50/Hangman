@@ -17,18 +17,16 @@
       <div id="guessWord"></div>
     </div>
     <div class="rightContainer">
-      <div class="textRules">Dans le jeu du pendu vous devez deviner un mot. Servez-vous des touches de 
-        votre clavier pour entrer une lettre et deviner le mot avant que l'affiche ne
-        soit reconstituée. La thématique de ce pendu est "film".</div>
+      <div class="textRules" id="text"></div>
         <div class="alertInput">
           <input type="text" id="letter" name="letter" required
           maxlength="1" size="10">
           <button type="button" id="valider">Valider</button>
-        <div class="alert">Veuillez entrer une lettre</div>
+        <div class="alert">Vous avez gagné</div>
       </div>
        <div class="bottomContainer">
-        <div id=rules class="button"> Règles</div>
-        <div id=clue class="button">Indice</div>
+        <button id=rules class="button"> Règles</button>
+        <button id=clue class="button">Indice</button>
       </div>
     </div>
   </div>
