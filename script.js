@@ -27,6 +27,7 @@ let clue = document.getElementById('clue');
 let text = document.getElementById('text');
 let rules = document.getElementById('rules');
 let keyboard = document.getElementById('keyboard');
+let message = document.getElementById('message');
 //C= Clavier, R=regle, I=indice
 let pageState = "C";
 const letters =[ "A","Z","E","R"];
@@ -58,10 +59,12 @@ function refreshPage() {
         clue.textContent = "Indice";
         rules.textContent = "Règle";
         text.textContent = "";
+        keyboard.style.display = "grid";
     }
     else if (pageState === "R"){
         clue.textContent = "Indice";
         rules.textContent = "Clavier";
+        keyboard.style.display = "none";
         text.textContent = `Dans le jeu du pendu vous devez deviner un mot. Servez-vous des touches de 
         votre clavier pour entrer une lettre et deviner le mot avant que l'affiche ne
         soit reconstituée. La thématique de ce pendu est "film".`;
@@ -69,10 +72,21 @@ function refreshPage() {
     else if(pageState === "I"){
         clue.textContent = "Clavier";
         rules.textContent = "Règle";
+        keyboard.style.display = "none";
         text.textContent = "Réalisateur: " + game.selectedMovie.realisateur + "\n";
     }
     guessWord.textContent=game.hiddenName();
     //ici on actualisera l'image en fonction du nombre d'erreur
+    //ici on actualisera le texte gagné/perdu
+    if (game.hiddenName().indexOf('_')===-1){
+        message.textContent = "Vous avez gagné ! ";
+    }
+    else if (error>=10){
+        message.textContent = " Vous avez perdu !"
+    }
+    else{
+        message.textContent = "";
+    }
 };
 
 
