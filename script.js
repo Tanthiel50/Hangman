@@ -23,8 +23,6 @@
 
 
 let guessWord = document.querySelector("#guessWord");
-let letterInput = document.querySelector('#letter');
-let validButton = document.getElementById('valider');
 let clue = document.getElementById('clue');
 let text = document.getElementById('text');
 let rules = document.getElementById('rules');
@@ -77,7 +75,6 @@ function Game(selectedMovie){
     this.addUserInput = (userInput) => {
         this.historique.push(userInput);
         this.checkState();
-        letterInput.value='';
     }
     //cette fonction permet d'évaluer le pendu (perdu, gagner)
     this.checkState = () => {
@@ -137,27 +134,6 @@ const game = new Game(movies[indexMovie]);
 
 guessWord.textContent=game.hiddenName();
 
-validButton.addEventListener('click', (event) => {
-    console.log(event);
-    console.log(letterInput.value);
-    const value = letterInput.value;
-    game.addUserInput(value.toUpperCase());
-
-});
-
-//activer le bouton si input rempli
-validButton.disabled = true;
-
-letterInput.addEventListener('input', (event) => {
-    console.log(event);
-    const value = event.target.value;
-    // value ='' & value = null & value=undefined
-    if (value) {
-        validButton.disabled = false;
-    } else {
-        validButton.disabled = true;
-    }
-});
 
 //Afficher les indices si bouton indice cliqué
 refreshPage();
