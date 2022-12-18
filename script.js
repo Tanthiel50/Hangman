@@ -29,12 +29,32 @@ let rules = document.getElementById('rules');
 let keyboard = document.getElementById('keyboard');
 let message = document.getElementById('message');
 let img = document.querySelector("img");
+let playAgain = document.getElementById('playAgain');
 //C= Clavier, R=regle, I=indice
 let pageState = "C";
 const letters =[ "A","Z","E","R","S","N","V"];
+const movies=[
+    new Movie(
+        "GLADIATOR",
+        "Ridley Scott",
+        2000,
+        "Russel Crowe, Joaquin Pheonix, Connie Nielsen"),
+    new Movie(
+        "INTERSTELLAR",
+        "Christopher Nolan",
+        2014,
+        "Matthew McConaughey, Anne Hathaway, Jessica Chastain"),
+    new Movie(
+        "SEVEN",
+        "David Fincher",
+        1995,
+        "Brad Pitt, Morgan Freeman, Gwyneth Paltrow"),
+];
+let game = null;
 
 
 function initKeyboard(){
+    keyboard.innerHTML="";
     letters.forEach((letter) =>{
         let element = document.createElement('button');
         element.textContent = letter;
@@ -53,7 +73,7 @@ function initKeyboard(){
     })
 };
 
-initKeyboard();
+
 
 function refreshPage() {
     if (pageState === "C") {
@@ -97,80 +117,33 @@ function refreshPage() {
 };
 
 
-function Game(selectedMovie){
-    this.selectedMovie = selectedMovie;
-    this.historique = [];
-    this.error = 0;
-    //cette fonction va tester la lettre entrée par le user et l'ajouter dans l'historique si elle n'éxiste pas
-    //après verification on évalue le pendu
-    this.addUserInput = (userInput) => {
-        this.historique.push(userInput);
-        
-        //va parcourir le titre et retourner la position de lettre input si elle existe et sinon retourne -1
-        const isOk = this.selectedMovie.titre.indexOf(userInput)>-1;
-        if (!isOk){
-            this.error ++;
-            console.log(this.error);
-        }
-        return isOk;
-    }
-
-    //cette fonction retourne le nom du film caché
-    this.hiddenName = () => {
-        let titre = "";
-        for(const char of this.selectedMovie.titre){
-            if (this.historique.includes(char)) {
-                titre += char + " ";
-            } else {
-                titre += "_ ";
-            }
-        }
-        console.log(titre);
-        return titre;
-    }
-}
 
 
-function Movie(titre,realisateur, annee,acteurs) {
-    this.titre = titre.toUpperCase();
-    this.realisateur = realisateur;
-    this.annee = annee;
-    this.acteurs = acteurs;
-}
 
-const movies=[
-    new Movie(
-        "GLADIATOR",
-        "Ridley Scott",
-        2000,
-        "Russel Crowe, Joaquin Pheonix, Connie Nielsen"),
-    new Movie(
-        "INTERSTELLAR",
-        "Christopher Nolan",
-        2014,
-        "Matthew McConaughey, Anne Hathaway, Jessica Chastain"),
-    new Movie(
-        "SEVEN",
-        "David Fincher",
-        1995,
-        "Brad Pitt, Morgan Freeman, Gwyneth Paltrow"),
-];
+
+
 
     //Récupérer un index entre 0 et la longueur du tableau
 function getRandomIndexMovie() {
     return Math.floor(Math.random() * movies.length);
 }
 
-const indexMovie = getRandomIndexMovie();
+function initPage(){
+    const indexMovie = getRandomIndexMovie();
 
-//Récupérer l'objet movie correspondant à la clef
-const game = new Game(movies[indexMovie]);
+    //Récupérer l'objet movie correspondant à la clef
+    game = new Game(movies[indexMovie]);
+    guessWord.textContent=game.hiddenName();
+    initKeyboard();
+    refreshPage();
+}
 
-guessWord.textContent=game.hiddenName();
 
+
+initPage();
 
 //Afficher les indices si bouton indice cliqué
-refreshPage();
+
 
 clue.addEventListener('click',() => {
     if (pageState !== "I") {
@@ -189,3 +162,7 @@ rules.addEventListener('click',() => {
     }
     refreshPage();
 });
+
+playAgain.addEventListener('click',() =>{
+    initPage();
+})
