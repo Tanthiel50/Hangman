@@ -28,8 +28,25 @@ let validButton = document.getElementById('valider');
 let clue = document.getElementById('clue');
 let text = document.getElementById('text');
 let rules = document.getElementById('rules');
+let keyboard = document.getElementById('keyboard');
 //C= Clavier, R=regle, I=indice
 let pageState = "C";
+const letters =[ "A","Z","E","R"];
+
+function initKeyboard(){
+    letters.forEach((letter) =>{
+        let element = document.createElement('button');
+        element.textContent = letter;
+        element.addEventListener('click', (event) => {
+            game.addUserInput(letter.toUpperCase());
+            element.disabled = true;
+        
+        });
+        keyboard.append(element);
+    })
+};
+
+initKeyboard();
 
 function refreshPage() {
     if (pageState === "C") {
@@ -49,8 +66,7 @@ function refreshPage() {
         rules.textContent = "Règle";
         text.textContent = "Réalisateur: " + game.selectedMovie.realisateur + "\n";
     }
-}
-
+};
 
 
 function Game(selectedMovie){
