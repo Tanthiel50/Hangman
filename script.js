@@ -28,9 +28,10 @@ let text = document.getElementById('text');
 let rules = document.getElementById('rules');
 let keyboard = document.getElementById('keyboard');
 let message = document.getElementById('message');
+let img = document.querySelector("img");
 //C= Clavier, R=regle, I=indice
 let pageState = "C";
-const letters =[ "A","Z","E","R"];
+const letters =[ "A","Z","E","R","S","N","V"];
 let error = 0;
 
 function initKeyboard(){
@@ -77,6 +78,12 @@ function refreshPage() {
     }
     guessWord.textContent=game.hiddenName();
     //ici on actualisera l'image en fonction du nombre d'erreur
+    if (!error) {
+        img.src = '';
+    } else {
+        img.src = `images/phase${error}.png`;
+    }
+    
     //ici on actualisera le texte gagné/perdu
     if (game.hiddenName().indexOf('_')===-1){
         message.textContent = "Vous avez gagné ! ";
