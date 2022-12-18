@@ -36,8 +36,14 @@ function initKeyboard(){
         let element = document.createElement('button');
         element.textContent = letter;
         element.addEventListener('click', (event) => {
-            game.addUserInput(letter.toUpperCase());
+            const isOk = game.addUserInput(letter.toUpperCase());
             element.disabled = true;
+            //au lieu de changer le texte changer la couleur du bouton
+            if (isOk) {
+                element.textContent = letter + " (ok)";
+            } else {
+                element.textContent = letter + '(perdu)';
+            }
         
         });
         keyboard.append(element);
@@ -75,6 +81,8 @@ function Game(selectedMovie){
     this.addUserInput = (userInput) => {
         this.historique.push(userInput);
         this.checkState();
+        //va parcourir le titre et retourner la position de lettre input si elle existe et sinon retourne -1
+        return(this.selectedMovie.titre.indexOf(userInput)>-1);
     }
     //cette fonction permet d'évaluer le pendu (perdu, gagner)
     this.checkState = () => {
