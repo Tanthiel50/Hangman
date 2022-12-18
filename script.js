@@ -32,7 +32,7 @@ let img = document.querySelector("img");
 //C= Clavier, R=regle, I=indice
 let pageState = "C";
 const letters =[ "A","Z","E","R","S","N","V"];
-let error = 0;
+
 
 function initKeyboard(){
     letters.forEach((letter) =>{
@@ -78,17 +78,17 @@ function refreshPage() {
     }
     guessWord.textContent=game.hiddenName();
     //ici on actualisera l'image en fonction du nombre d'erreur
-    if (!error) {
+    if (!game.error) {
         img.src = '';
     } else {
-        img.src = `images/phase${error}.png`;
+        img.src = `images/phase${game.error}.png`;
     }
     
     //ici on actualisera le texte gagné/perdu
     if (game.hiddenName().indexOf('_')===-1){
         message.textContent = "Vous avez gagné ! ";
     }
-    else if (error>=10){
+    else if (game.error>=10){
         message.textContent = " Vous avez perdu !"
     }
     else{
@@ -100,6 +100,7 @@ function refreshPage() {
 function Game(selectedMovie){
     this.selectedMovie = selectedMovie;
     this.historique = [];
+    this.error = 0;
     //cette fonction va tester la lettre entrée par le user et l'ajouter dans l'historique si elle n'éxiste pas
     //après verification on évalue le pendu
     this.addUserInput = (userInput) => {
@@ -108,8 +109,8 @@ function Game(selectedMovie){
         //va parcourir le titre et retourner la position de lettre input si elle existe et sinon retourne -1
         const isOk = this.selectedMovie.titre.indexOf(userInput)>-1;
         if (!isOk){
-            error ++;
-            console.log(error);
+            this.error ++;
+            console.log(this.error);
         }
         return isOk;
     }
