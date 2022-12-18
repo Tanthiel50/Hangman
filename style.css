@@ -28,6 +28,7 @@ header{
 .mainContainer{
   display: flex;
   margin-top: 5%;
+  /* height: 40%; */
 }
 
 .leftContainer{
@@ -57,6 +58,17 @@ img{
   justify-content: space-around;
   width: 50%;
 }
+
+.keyboardGrid{
+  display: grid;
+  grid-template-columns: repeat(10,1fr);
+  grid-column: 1;
+  padding: 5% 20%;
+  row-gap: 3px;
+  column-gap: 3px;
+}
+
+
 .bottomContainer{
   display: flex;
   justify-content: space-around;
@@ -76,7 +88,6 @@ img{
 
 .alert{
   padding: 0 20%;
-  color: green;
   font-size: small;
 }
 

@@ -2,20 +2,20 @@
 
 
 // const movies = [
-// 	['','','','PARASITE','INCEPTION','WHIPLASH','PSYCHOSE',
-// 	'JOKER','HAMILTON','HARAKIRI','MATRIX','SHINING','TITANIC','SCARFACE','AVATAR',
+// 	['','','','','','','',
+// 	'','','','MATRIX','SHINING','TITANIC','SCARFACE','AVATAR',
 //     'CASABLANCA','AMADEUS'],
-//     ['','', '','Bong Joon-ho','Christopher Nolan',
-//     'Damien Chazelle','Alfred Hitchcock','Todd Phillips','Thomas Kail','Masaki Kobayashi',
+//     ['','', '','','',
+//     '','','','','',
 //     'The Wachowskis','Stanley Kubrick','James Cameron','Brian de Palma','James Cameron',
 //     'Michael Curtiz','Miloš Forman'],
-//     ['','','','2019', '2010','2014','1960','2019','2020','1962','1999','1980',
+//     ['','','','', '','','','','','','1999','1980',
 //     '1997','1983','2009','1942','1984'],
 //     ['','',
-//     '','Song Kang-ho,Lee Sun-kyun,Cho Yeo-jeong',
-//     'Leonardo DiCaprio, Ken Watanabe, Joseph Gordon-Levitt','Miles Teller, J.K. Simmons, David Lancaster',
-//     'Anthony Perkins, Vera Miles, John Gavin','Joaquin Phoenix, Robert De Niro, Zazie Beetz',
-//     'Daveed Diggs, Renée Elise Goldsberry, Jonathan Groff','Tatsuya Nakadai, Shima Iwashita, Akira Ishihama',
+//     '','',
+//     '','',
+//     '','z',
+//     '','',
 //     'Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss','Jack Nicholson, Shelley Duvall, Scatman Crothers',
 //     'Leonardo DiCaprio, Kate Winslet, Billy Zane','Al Pacino','Sam Worthington, Zoe Saldana, Stephen Lang',
 //     'Humphrey Bogart, Ingrid Bergman, Paul Henreid','F. Murray Abraham, Tom Hulce, Elizabeth Berridge'],
@@ -32,23 +32,58 @@ let img = document.querySelector("img");
 let playAgain = document.getElementById('playAgain');
 //C= Clavier, R=regle, I=indice
 let pageState = "C";
-const letters =[ "A","Z","E","R","S","N","V"];
+const letters =[ "A","Z","E","R","T","Y","U","I","O","P","Q","S","D","F","G","H","J","K","L","M","W","X","C","V","B","N"];
 const movies=[
     new Movie(
         "GLADIATOR",
         "Ridley Scott",
-        2000,
+        "2000",
         "Russel Crowe, Joaquin Pheonix, Connie Nielsen"),
     new Movie(
         "INTERSTELLAR",
         "Christopher Nolan",
-        2014,
+        "2014",
         "Matthew McConaughey, Anne Hathaway, Jessica Chastain"),
     new Movie(
         "SEVEN",
         "David Fincher",
-        1995,
+        "1995",
         "Brad Pitt, Morgan Freeman, Gwyneth Paltrow"),
+    new Movie(
+        "PARASITE",
+        "Bong Joon-ho",
+        "2019",
+        "Song Kang-ho,Lee Sun-kyun,Cho Yeo-jeong"),
+    new Movie(
+        "INCEPTION",
+        "Christopher Nolan",
+        "2010",
+        "Leonardo DiCaprio, Ken Watanabe, Joseph Gordon-Levitt"),
+    new Movie(
+        "WHIPLASH",
+        "Damien Chazelle",
+        "2014",
+        "Miles Teller, J.K. Simmons, David Lancaster"),
+    new Movie(
+        "PSYCHOSE",
+        "Alfred Hitchcock",
+        "1960",
+        "Anthony Perkins, Vera Miles, John Gavin"),
+    new Movie(
+        "JOKER",
+        "Todd Phillips",
+        "2019",
+        "Joaquin Phoenix, Robert De Niro, Zazie Beet"),
+    new Movie(
+        "HAMILTON",
+        "Thomas Kail",
+        "2020",
+        "Daveed Diggs, Renée Elise Goldsberry, Jonathan Groff"),
+    new Movie(
+        "HARAKIRI",
+        "Masaki Kobayashi",
+        "1962",
+        "Tatsuya Nakadai, Shima Iwashita, Akira Ishihama"),
 ];
 let game = null;
 
@@ -61,18 +96,19 @@ function initKeyboard(){
         element.addEventListener('click', (event) => {
             const isOk = game.addUserInput(letter.toUpperCase());
             element.disabled = true;
-            //au lieu de changer le texte changer la couleur du bouton
+            //change la couleur du bouton
             if (isOk) {
-                element.textContent = letter + " (ok)";
+                element.style.backgroundColor= "#C3F25C";
+                element.style.color= "#0C0D0A";
             } else {
-                element.textContent = letter + '(perdu)';
+                element.style.backgroundColor= "red";
+                element.style.color= "#0C0D0A";
             }
         refreshPage();
         });
         keyboard.append(element);
     })
 };
-
 
 
 function refreshPage() {
@@ -94,30 +130,35 @@ function refreshPage() {
         clue.textContent = "Clavier";
         rules.textContent = "Règle";
         keyboard.style.display = "none";
-        text.textContent = "Réalisateur: " + game.selectedMovie.realisateur + "\n";
+        text.textContent = "Réalisateur: " + game.selectedMovie.realisateur + "\n" + "Année: " + game.selectedMovie.annee + "\n" + "Acteurs: " + game.selectedMovie.acteurs;
     }
     guessWord.textContent=game.hiddenName();
     //ici on actualisera l'image en fonction du nombre d'erreur
     if (!game.error) {
-        img.src = '';
+        img.src = 'images/phase.png';
     } else {
         img.src = `images/phase${game.error}.png`;
     }
     
+
     //ici on actualisera le texte gagné/perdu
     if (game.hiddenName().indexOf('_')===-1){
         message.textContent = "Vous avez gagné ! ";
+        message.style.color= "green";
+        playAgain.style.display = "block";
+        keyboard.style.display = "none";
     }
-    else if (game.error>=10){
-        message.textContent = " Vous avez perdu !"
+    else if (game.error>=8){
+        message.textContent = " Vous avez perdu ! Le film était "+ game.selectedMovie.titre;
+        message.style.color= "red";
+        playAgain.style.display = "block";
+        keyboard.style.display = "none";
+
     }
     else{
         message.textContent = "";
     }
 };
-
-
-
 
 
 
@@ -136,6 +177,7 @@ function initPage(){
     guessWord.textContent=game.hiddenName();
     initKeyboard();
     refreshPage();
+    playAgain.style.display = "none";
 }
 
 
@@ -165,4 +207,5 @@ rules.addEventListener('click',() => {
 
 playAgain.addEventListener('click',() =>{
     initPage();
-})
+});
+
