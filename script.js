@@ -30,6 +30,7 @@ let keyboard = document.getElementById('keyboard');
 //C= Clavier, R=regle, I=indice
 let pageState = "C";
 const letters =[ "A","Z","E","R"];
+let error = 0;
 
 function initKeyboard(){
     letters.forEach((letter) =>{
@@ -44,7 +45,7 @@ function initKeyboard(){
             } else {
                 element.textContent = letter + '(perdu)';
             }
-        
+        refreshPage();
         });
         keyboard.append(element);
     })
@@ -70,6 +71,8 @@ function refreshPage() {
         rules.textContent = "Règle";
         text.textContent = "Réalisateur: " + game.selectedMovie.realisateur + "\n";
     }
+    guessWord.textContent=game.hiddenName();
+    //ici on actualisera l'image en fonction du nombre d'erreur
 };
 
 
@@ -80,15 +83,16 @@ function Game(selectedMovie){
     //après verification on évalue le pendu
     this.addUserInput = (userInput) => {
         this.historique.push(userInput);
-        this.checkState();
+        
         //va parcourir le titre et retourner la position de lettre input si elle existe et sinon retourne -1
-        return(this.selectedMovie.titre.indexOf(userInput)>-1);
+        const isOk = this.selectedMovie.titre.indexOf(userInput)>-1;
+        if (!isOk){
+            error ++;
+            console.log(error);
+        }
+        return isOk;
     }
-    //cette fonction permet d'évaluer le pendu (perdu, gagner)
-    this.checkState = () => {
-        console.log("on test");
-        guessWord.textContent=game.hiddenName();
-    }
+
     //cette fonction retourne le nom du film caché
     this.hiddenName = () => {
         let titre = "";
