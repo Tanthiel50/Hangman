@@ -130,7 +130,7 @@ function refreshPage() {
         clue.textContent = "Clavier";
         rules.textContent = "Règle";
         keyboard.style.display = "none";
-        text.textContent = "Réalisateur: " + game.selectedMovie.realisateur + "\n" + "Année: " + game.selectedMovie.annee + "\n" + "Acteurs: " + game.selectedMovie.acteurs;
+        text.textContent = "Réalisateur: " + game.selectedMovie.realisateur + '\n' + "Année: " + game.selectedMovie.annee + "\n" + "Acteurs: " + game.selectedMovie.acteurs;
     }
     guessWord.textContent=game.hiddenName();
     //ici on actualisera l'image en fonction du nombre d'erreur
