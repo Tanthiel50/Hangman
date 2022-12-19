@@ -104,7 +104,7 @@ function initKeyboard(){
                 element.style.backgroundColor= "#C3F25C";
                 element.style.color= "#0C0D0A";
             } else {
-                element.style.backgroundColor= "red";
+                element.style.backgroundColor= "#B158FD";
                 element.style.color= "#0C0D0A";
             }
         refreshPage();
@@ -147,13 +147,13 @@ function refreshPage() {
     //ici on actualisera le texte gagné/perdu
     if (game.hiddenName().indexOf('_')===-1){
         message.textContent = "Vous avez gagné ! ";
-        message.style.color= "green";
+        message.style.color= "#C3F25C";
         playAgain.style.display = "block";
         keyboard.style.display = "none";
     }
     else if (game.error>=8){
         message.textContent = " Vous avez perdu ! Le film était "+ game.selectedMovie.titre;
-        message.style.color= "red";
+        message.style.color= "white";
         playAgain.style.display = "block";
         keyboard.style.display = "none";
 
