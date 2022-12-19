@@ -28,6 +28,8 @@ header{
 .mainContainer{
   display: flex;
   margin-top: 5%;
+  width: 100vw;
+
   /* height: 40%; */
 }
 
@@ -61,7 +63,7 @@ img{
 
 .keyboardGrid{
   display: grid;
-  grid-template-columns: repeat(10,1fr);
+  grid-template-columns: repeat(5,1fr);
   grid-column: 1;
   padding: 5% 20%;
   row-gap: 3px;
@@ -87,7 +89,7 @@ img{
 }
 
 .alert{
-  padding: 0 20%;
+  padding: 0 25%;
   font-size: small;
 }
 

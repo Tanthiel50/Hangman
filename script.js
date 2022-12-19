@@ -93,6 +93,9 @@ function initKeyboard(){
     letters.forEach((letter) =>{
         let element = document.createElement('button');
         element.textContent = letter;
+        element.style.backgroundColor = "#0C0D0A";
+        element.style.color = "#C3F25C";
+        element.style.padding = "5px 20px";
         element.addEventListener('click', (event) => {
             const isOk = game.addUserInput(letter.toUpperCase());
             element.disabled = true;
